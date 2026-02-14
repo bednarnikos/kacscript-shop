@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KacObywtel - Panel</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card: #111111;
+            --fg: #f5f5f5;
+            --muted: #9ca3af;
+            --accent: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 20%, #2a0d0d 0%, var(--bg) 50%);
+            color: var(--fg);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 620px;
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.8rem;
+        }
+
+        p { margin: 0 0 16px; color: var(--muted); }
+
+        .row {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .label {
+            display: block;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .value {
+            font-weight: 700;
+            color: #ffffff;
+            word-break: break-all;
+        }
+
+        .ok { color: #22c55e; }
+        .warn { color: #f59e0b; }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button, a {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        button {
+            background: var(--accent);
+            color: #000;
+        }
+
+        a {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Panel KacObywtel</h1>
+        <p>Status logowania i aktywnej licencji.</p>
+
+        <div class="row">
+            <span class="label">Status</span>
+            <span id="status" class="value warn">Sprawdzanie...</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Klucz licencji</span>
+            <span id="licenseKey" class="value">-</span>
+        </div>
+
+        <div class="row">
+            <span class="label">Ważność</span>
+            <span id="expires" class="value">-</span>
+        </div>
+
+        <div class="actions">
+            <button id="logoutBtn" type="button">Wyloguj</button>
+            <a href="login.html">Przejdź do logowania</a>
+        </div>
+    </main>
+
+    <script>
+        const FIXED_LICENSE_KEY = "OLX5-DRGF-VREL-CRLF";
+        const statusEl = document.getElementById("status");
+        const licenseEl = document.getElementById("licenseKey");
+        const expiresEl = document.getElementById("expires");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        function activateFixedLicense() {
+            const data = {
+                key: FIXED_LICENSE_KEY,
+                activatedAt: new Date().toISOString(),
+                neverExpires: true
+            };
+            localStorage.setItem("licenseKey", FIXED_LICENSE_KEY);
+            localStorage.setItem("licenseData", JSON.stringify(data));
+            localStorage.setItem("isLoggedIn", "true");
+            return data;
+        }
+
+        function readLicenseData() {
+            try {
+                return JSON.parse(localStorage.getItem("licenseData") || "null");
+            } catch {
+                return null;
+            }
+        }
+
+        function syncFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const urlLicense = params.get("license");
+            if (urlLicense === FIXED_LICENSE_KEY) {
+                activateFixedLicense();
+                window.history.replaceState({}, "", "index.html");
+            }
+        }
+
+        function render() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const storedKey = localStorage.getItem("licenseKey");
+            const data = readLicenseData();
+
+            if (!isLoggedIn || storedKey !== FIXED_LICENSE_KEY) {
+                const activated = activateFixedLicense();
+                statusEl.textContent = "Aktywny";
+                statusEl.className = "value ok";
+                licenseEl.textContent = FIXED_LICENSE_KEY;
+                expiresEl.textContent = activated.neverExpires ? "Bezterminowa" : "-";
+                return;
+            }
+
+            statusEl.textContent = "Aktywny";
+            statusEl.className = "value ok";
+            licenseEl.textContent = storedKey;
+            expiresEl.textContent = data && data.neverExpires ? "Bezterminowa" : "Bezterminowa";
+        }
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("licenseKey");
+            localStorage.removeItem("licenseData");
+            window.location.href = "login.html";
+        });
+
+        syncFromUrl();
+        render();
+    </script>
+</body>
+</html>
