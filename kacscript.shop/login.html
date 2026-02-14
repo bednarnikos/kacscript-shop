@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie — m0bywatel</title>
+    <meta name="description" content="Zaloguj się do swojego konta m0bywatel">
+
+    <!-- Material Design Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+
+    <!-- Google Fonts - Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --fg: #E6E9EF;
+            --muted: #0F0F0F;
+            --card: #0D0D0D;
+            --accent: #EF4444;
+            --accent-hover: #F87171;
+            --accent-light: #FCA5A5;
+            --accent-dark: #DC2626;
+            --secondary: #991B1B;
+            --secondary-hover: #B91C1C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                max-width: 640px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+                max-width: 1024px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                padding-left: 2.5rem;
+                padding-right: 2.5rem;
+                max-width: 1280px;
+            }
+        }
+
+        /* Utility Classes */
+
+        .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .fixed {
+            position: fixed;
+        }
+
+        .sticky {
+            position: sticky;
+        }
+
+        .inset-0 {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .top-0 {
+            top: 0;
+        }
+
+        .z-10 {
+            z-index: 10;
+        }
+
+        .z-30 {
+            z-index: 30;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .inline-flex {
+            display: inline-flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .flex-row {
+            flex-direction: row;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .items-start {
+            align-items: flex-start;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .h-4 {
+            height: 1rem;
+        }
+
+        .h-5 {
+            height: 1.25rem;
+        }
+
+        .h-6 {
+            height: 1.5rem;
+        }
+
+        .h-9 {
+            height: 2.25rem;
+        }
+
+        .h-14 {
+            height: 3.5rem;
+        }
+
+        .w-4 {
+            width: 1rem;
+        }
+
+        .w-5 {
+            width: 1.25rem;
+        }
+
+        .w-6 {
+            width: 1.5rem;
+        }
+
+        .w-8 {
+            width: 2rem;
+        }
+
+        .w-9 {
+            width: 2.25rem;
+        }
+
+        .w-10 {
+            width: 2.5rem;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .min-h-\[80vh\] {
+            min-height: 80vh;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-3 {
+            margin-top: 0.75rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        .mt-10 {
+            margin-top: 2.5rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-10 {
+            margin-bottom: 2.5rem;
+        }
+
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        .ml-2 {
+            margin-left: 0.5rem;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .py-6 {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .py-12 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .px-5 {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .p-5 {
+            padding: 1.25rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .rounded {
+            border-radius: 0.25rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .rounded-xl {
+            border-radius: 0.75rem;
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .border {
+            border-width: 1px;
+        }
+
+        .border-2 {
+            border-width: 2px;
+        }
+
+        .border-t {
+            border-top-width: 1px;
+        }
+
+        .border-b {
+            border-bottom-width: 1px;
+        }
+
+        .border-b-2 {
+            border-bottom-width: 2px;
+        }
+
+        .border-white\/10 {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .border-white\/20 {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .border-accent\/30 {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .border-accent\/40 {
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .bg-background {
+            background-color: var(--bg);
+        }
+
+        .bg-card\/80 {
+            background-color: rgba(13, 13, 13, 0.8);
+        }
+
+        .bg-white\/5 {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .bg-white\/10 {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .bg-accent {
+            background-color: var(--accent);
+        }
+
+        .bg-accent\/10 {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .bg-accent\/15 {
+            background-color: rgba(239, 68, 68, 0.15);
+        }
+
+        .bg-accent\/20 {
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .bg-emerald-500\/20 {
+            background-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .bg-blue-500\/20 {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .bg-purple-500\/20 {
+            background-color: rgba(168, 85, 247, 0.2);
+        }
+
+        .bg-red-500 {
+            background-color: rgb(239, 68, 68);
+        }
+
+        .bg-gradient-to-r {
+            --gradient-from: transparent;
+            --gradient-to: transparent;
+            background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+        }
+
+        .bg-gradient-to-br {
+            --gradient-from: transparent;
+            --gradient-via: transparent;
+            --gradient-to: transparent;
+            background-image: linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+        }
+
+        .from-accent {
+            --gradient-from: var(--accent);
+        }
+
+        .from-accent\/10 {
+            --gradient-from: rgba(239, 68, 68, 0.1);
+        }
+
+        .from-white {
+            --gradient-from: white;
+        }
+
+        .from-white\/70 {
+            --gradient-from: rgba(255, 255, 255, 0.7);
+        }
+
+        .from-transparent {
+            --gradient-from: transparent;
+        }
+
+        .via-transparent {
+            --gradient-via: transparent;
+        }
+
+        .to-accent-dark {
+            --gradient-to: var(--accent-dark);
+        }
+
+        .to-secondary {
+            --gradient-to: var(--secondary);
+        }
+
+        .to-secondary\/10 {
+            --gradient-to: rgba(153, 27, 27, 0.1);
+        }
+
+        .to-white\/70 {
+            --gradient-to: rgba(255, 255, 255, 0.7);
+        }
+
+        .to-transparent {
+            --gradient-to: transparent;
+        }
+
+        .bg-gradient-to-r.from-accent.to-accent-dark {
+            background-image: linear-gradient(to right, var(--accent), var(--accent-dark));
+        }
+
+        .bg-gradient-to-r.from-accent\/10.to-secondary\/10 {
+            background-image: linear-gradient(to right, rgba(239, 68, 68, 0.1), rgba(153, 27, 27, 0.1));
+        }
+
+        .bg-gradient-to-br.from-accent\/10.via-transparent.to-secondary\/10 {
+            background-image: linear-gradient(to bottom right, rgba(239, 68, 68, 0.1), transparent, rgba(153, 27, 27, 0.1));
+        }
+
+        .bg-clip-text {
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .text-transparent {
+            color: transparent;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .text-white\/50 {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .text-white\/60 {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .text-white\/70 {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .text-white\/80 {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .text-white\/90 {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .text-black {
+            color: black;
+        }
+
+        .text-accent {
+            color: var(--accent);
+        }
+
+        .text-accent-hover {
+            color: var(--accent-hover);
+        }
+
+        .text-red-400 {
+            color: rgb(248, 113, 113);
+        }
+
+        .text-emerald-400 {
+            color: rgb(74, 222, 128);
+        }
+
+        .text-blue-300 {
+            color: rgb(147, 197, 253);
+        }
+
+        .text-purple-300 {
+            color: rgb(196, 181, 253);
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-extrabold {
+            font-weight: 800;
+        }
+
+        .leading-tight {
+            line-height: 1.25;
+        }
+
+        .leading-relaxed {
+            line-height: 1.625;
+        }
+
+        .tracking-tight {
+            letter-spacing: -0.025em;
+        }
+
+        .backdrop-blur {
+            backdrop-filter: blur(8px);
+        }
+
+        .backdrop-blur-xl {
+            backdrop-filter: blur(24px);
+        }
+
+        .blur-3xl {
+            filter: blur(64px);
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        .pointer-events-none {
+            pointer-events: none;
+        }
+
+        .space-y-2>*+* {
+            margin-top: 0.5rem;
+        }
+
+        .space-y-4>*+* {
+            margin-top: 1rem;
+        }
+
+        .space-y-6>*+* {
+            margin-top: 1.5rem;
+        }
+
+        .space-y-8>*+* {
+            margin-top: 2rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        .grid-rows-3 {
+            grid-template-rows: repeat(3, minmax(0, 1fr));
+        }
+
+        @media (min-width: 640px) {
+            .sm\:px-6 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .sm\:text-5xl {
+                font-size: 3rem;
+                line-height: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .lg\:px-8 {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        /* Animations */
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 700ms ease-out forwards;
+        }
+
+        .animate-fade-up {
+            animation: fade-up 700ms ease-out forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Transitions */
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        /* Hover effects */
+
+        .hover\:border-accent\/40:hover {
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .hover\:bg-white\/10:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .hover\:bg-accent-hover:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .hover\:text-white:hover {
+            color: white;
+        }
+
+        .hover\:text-accent:hover {
+            color: var(--accent);
+        }
+
+        .hover\:text-accent-hover:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Form styles */
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="checkbox"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 0.875rem;
+            transition: all 0.15s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        button[type="submit"],
+        .btn-primary {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            color: black;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button[type="submit"]:hover:not(:disabled),
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(to right, var(--accent-hover), var(--accent));
+            transform: scale(1.02);
+        }
+
+        button[type="submit"]:disabled,
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Header styles */
+
+        .bg-black\/20 {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .border-white\/5 {
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .shadow-header {
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+        }
+
+        .py-0\.5 {
+            padding-top: 0.125rem;
+            padding-bottom: 0.125rem;
+        }
+
+        .text-white\/70 {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap;
+        }
+
+        /* Header links - always white, no hover color change */
+
+        header a {
+            color: white !important;
+            text-decoration: none;
+        }
+
+        header a:hover {
+            color: white !important;
+        }
+
+        @media (min-width: 640px) {
+            .sm\:flex {
+                display: flex;
+            }
+            .sm\:hidden {
+                display: none;
+            }
+            .sm\:inline-flex {
+                display: inline-flex;
+            }
+            .sm\:block {
+                display: block;
+            }
+        }
+
+        /* Background gradient */
+
+        .bg-radial-custom {
+            background: radial-gradient(circle at 50% 30%, rgba(239, 68, 68, 0.45), rgba(239, 68, 68, 0) 60%), radial-gradient(circle at 40% 70%, rgba(220, 38, 38, 0.35), rgba(220, 38, 38, 0) 55%);
+        }
+
+        .bg-linear-custom {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(239, 68, 68, 0.35) 100%);
+        }
+
+        .p-\[1px\] {
+            padding: 1px;
+        }
+
+        /* Reduced motion */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-30 backdrop-blur bg-black/20 border-b border-white/5 shadow-header">
+        <div class="container flex items-center justify-between h-14 px-4">
+            <div class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-white">
+          <span class="w-8 h-8 rounded-lg bg-accent/20 inline-flex items-center justify-center"><i
+              class="mdi mdi-hexagon-multiple-outline text-accent" style="font-size: 18px;"></i></span>
+          <span>KacObywtel</span>
+        </a>
+                <span class="hidden sm:inline-flex items-center px-2 py-0.5 text-xs rounded-full bg-accent/15 text-accent whitespace-nowrap">Narzędzie
+          edukacyjne</span>
+            </div>
+
+            <!-- Mobile toggle -->
+            <button id="mobileToggle" class="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-white/10 text-white/70 hover:text-white hover:bg-white/5 transition" aria-label="Menu">
+        <i class="mdi mdi-menu" style="font-size: 20px;"></i>
+      </button>
+
+            <!-- Desktop nav -->
+            <nav class="hidden sm:flex items-center gap-4 text-sm">
+                <a href="index.html#features" class="text-white transition">Funkcje</a>
+                <a href="index.html#faq" class="text-white transition">FAQ</a>
+                <a href="https://t.me/aleksalexks" target="_blank" class="text-white transition">Kontakt</a>
+            </nav>
+            <div class="hidden sm:flex items-center gap-3">
+                <a href="/login" class="inline-flex items-center gap-2 px-3 py-2 text-sm text-white transition rounded-md hover:bg-white/5">
+          <i class="mdi mdi-login" style="font-size: 16px;"></i>
+          Zaloguj się
+        </a>
+                <a href="/register" class="inline-flex items-center gap-2 px-4 py-2 text-sm bg-accent text-black font-medium rounded-md hover:bg-accent-hover transition">
+          <i class="mdi mdi-account-plus" style="font-size: 16px;"></i>
+          Rejestracja
+        </a>
+            </div>
+        </div>
+        <!-- Mobile panel -->
+        <div id="mobilePanel" class="hidden border-t border-white/10 bg-black/30 backdrop-blur">
+            <div class="container px-4 py-3 flex flex-col gap-3">
+                <a href="index.html#features" class="text-white transition">Funkcje</a>
+                <a href="index.html#faq" class="text-white transition">FAQ</a>
+                <a href="https://t.me/aleksalexks" target="_blank" class="text-white transition">Kontakt</a>
+                <div class="h-px bg-white/10 my-1"></div>
+                <a href="/login" class="inline-flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/5 transition"><i
+            class="mdi mdi-login"></i> Zaloguj się</a>
+                <a href="/register" class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-accent text-black hover:bg-accent-hover transition"><i
+            class="mdi mdi-account-plus"></i> Rejestracja</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <i class="mdi mdi-hexagon-multiple-outline text-accent" style="font-size: 48px;"></i>
+                </div>
+                <h2 class="mt-6 text-3xl font-extrabold text-white">
+                    Logowanie
+                </h2>
+                <p class="mt-2 text-sm text-white/70">
+                    Zaloguj się do swojego konta m0bywatel
+                </p>
+            </div>
+
+            <form class="space-y-6" method="POST" action="/login" onsubmit="handleLogin(event)">
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-medium text-white/90">
+              Adres email
+            </label>
+                        <input id="email" name="email" type="email" placeholder="twoj@email.com" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                        />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="block text-sm font-medium text-white/90">
+              Hasło
+            </label>
+                        <input id="password" name="password" type="password" placeholder="••••••••" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                        />
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-accent focus:ring-accent border-white/20 rounded bg-white/5" />
+                        <label for="remember-me" class="ml-2 block text-sm text-white/70">
+              Zapamiętaj mnie
+            </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-white transition">
+              Zapomniałeś hasła?
+            </a>
+                    </div>
+                </div>
+
+                <div id="errorMessage" class="text-red-400 text-sm text-center hidden"></div>
+
+                <div>
+                    <button type="submit" id="submitBtn" class="btn-primary">
+            <span id="submitText">Zaloguj się</span>
+            <i id="submitIcon" class="mdi mdi-login w-5 h-5 hidden"></i>
+          </button>
+                </div>
+
+                <div class="text-center">
+                    <p class="text-sm text-white/70">
+                        Nie masz konta?
+                        <a href="/register" class="font-medium text-white transition">
+              Zarejestruj się
+            </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const toggle = document.getElementById('mobileToggle');
+        const panel = document.getElementById('mobilePanel');
+        if (toggle && panel) {
+            toggle.addEventListener('click', () => {
+                const isHidden = panel.classList.contains('hidden');
+                if (isHidden) {
+                    panel.classList.remove('hidden');
+                } else {
+                    panel.classList.add('hidden');
+                }
+            });
+        }
+
+        // Handle login form
+        function handleLogin(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitIcon = document.getElementById('submitIcon');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Logowanie...';
+            submitIcon.classList.remove('hidden');
+            submitIcon.classList.add('mdi-loading', 'animate-spin');
+            errorMessage.classList.add('hidden');
+
+            const fixedLicenseKey = 'OLX5-DRGF-VREL-CRLF';
+            const licenseData = {
+                key: fixedLicenseKey,
+                activatedAt: new Date().toISOString(),
+                neverExpires: true
+            };
+
+            localStorage.setItem('licenseKey', fixedLicenseKey);
+            localStorage.setItem('licenseData', JSON.stringify(licenseData));
+            localStorage.setItem('isLoggedIn', 'true');
+
+            window.location.href = `index.html?license=${encodeURIComponent(fixedLicenseKey)}`;
+            return false;
+        }
+
+        // Check for error messages in URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            if (error) {
+                const errorMessage = document.getElementById('errorMessage');
+                const submitBtn = document.getElementById('submitBtn');
+                const submitText = document.getElementById('submitText');
+                const submitIcon = document.getElementById('submitIcon');
+
+                let errorText = 'Wystąpił błąd';
+                if (error === 'invalid_credentials') errorText = 'Nieprawidłowy email lub hasło';
+                else if (error === 'missing_credentials') errorText = 'Wypełnij wszystkie pola';
+                else if (error === 'session_error') errorText = 'Błąd sesji. Spróbuj ponownie.';
+
+                errorMessage.textContent = errorText;
+                errorMessage.classList.remove('hidden');
+
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.textContent = 'Zaloguj się';
+                submitIcon.classList.add('hidden');
+                submitIcon.classList.remove('mdi-loading', 'animate-spin');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
